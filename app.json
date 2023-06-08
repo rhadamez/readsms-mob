@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "readsms-mob",
+    "slug": "readsms-mob",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
