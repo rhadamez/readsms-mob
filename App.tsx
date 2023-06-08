@@ -19,7 +19,9 @@ export default function App() {
   }, [paste])
 
   function handleTextChange(text: string, index: number) {
-    if(text === '') return
+    if(text === '') {
+      if(index !== 1) inputRef.current[index-1].focus()
+    }
     else if(text.length === 1) {
       inputRef.current[index].setNativeProps({ text: text.charAt(0) })
       if(index < totalInputs) inputRef.current[index+1].focus()
