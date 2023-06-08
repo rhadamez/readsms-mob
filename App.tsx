@@ -1,12 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useRef, useState } from 'react';
-import { View, TextInput } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, TextInput, Button } from 'react-native';
 
 import { styles } from './styles'
 
 export default function App() {
   const [totalInputs] = useState(4)
   const inputRef = useRef<TextInput[]>([])
+
+  const [paste, setPaste] = useState(false)
+
+  useEffect(() => {
+    if(paste) {
+      Array.from({ length: totalInputs }, (_, index) => index+1).map(item => {
+        inputRef.current[item].setNativeProps({ text: 'char'.charAt(item-1)})
+      })
+    }
+  }, [paste])
 
   function handleTextChange(text: string, index: number) {
     if(text === '') return
@@ -36,6 +46,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style='dark' />
+      <Button title='Emit' onPress={() => setPaste(!paste)}/>
       {Array.from({ length: totalInputs }, (_, index) => index+1).map(item => (
         <TextInput
           ref={(ref) => { inputRef.current[item] = ref }}
